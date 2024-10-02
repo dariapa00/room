@@ -5,62 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyROoM</title>
     <style>
-        .item {
-            position: absolute; /* 아이템을 원하는 곳에 배치하기 위해 절대 위치 사용 */
-            cursor: pointer; /* 클릭할 수 있음을 표시하는 커서 */
-        }
+        /* 방 스타일 */
         #room {
-            width: 600px;
-            height: 400px;
+            width: 100%; /* 방의 크기를 창 너비에 맞춤 */
+            height: auto;
+            max-width: 600px; /* 최대 너비 설정 */
             background-image: url('room-background.jpg'); /* 배경 이미지 */
             background-size: cover;
             background-position: center;
             position: relative; /* 절대 위치를 설정하기 위한 부모 요소 */
+            margin: 0 auto; /* 방을 가운데로 배치 */
         }
+
+        /* 아이템 스타일 */
+        .item {
+            position: absolute; /* 아이템을 원하는 곳에 배치하기 위해 절대 위치 사용 */
+            cursor: pointer; /* 클릭할 수 있음을 표시하는 커서 */
+        }
+
+        /* 이미지 크기를 창 크기에 맞추기 위한 스타일 */
+        #bed, #lamp, #rug {
+            width: 30%; /* 창 크기에 따라 크기 비율 조정 */
+            height: auto; /* 비율에 맞춰 자동 조정 */
+        }
+
+        /* 아이템 위치 (기본 값) */
         #bed {
-            left: 100px;
-            bottom: 50px;
-            width: 200px;
+            left: 10%;
+            bottom: 10%;
         }
+
         #lamp {
-            right: 100px;
-            bottom: 70px;
-            width: 200px;
+            right: 10%;
+            bottom: 10%;
         }
+
         #rug {
-            right: 180px;
-            bottom: 50px;
-            width: 210px;
+            left: 50%;
+            bottom: 5%;
+            transform: translateX(-50%); /* 중앙 정렬 */
         }
-        
+
+        /* 작은 화면일 때 스타일 조정 (모바일 대응) */
+        @media (max-width: 600px) {
+            #bed, #lamp, #rug {
+                width: 50%; /* 작은 화면에서는 이미지가 너무 작지 않게 크기 조정 */
+            }
+        }
     </style>
 </head>
 <body>
     <div id="room">
         <img src="rug.png" id="rug" class="item">
-        <!-- 침대 이미지 -->
         <img src="bed.png" id="bed" class="item">
-        <!-- 램프 이미지 -->
-        <img src="lamp.png" id="lamp" class="item"> <!-- lamp(켜짐) 이미지 -->
+        <img src="lamp.png" id="lamp" class="item">
     </div>
+
     <script>
-        // 상태 변수를 사용하여 램프가 켜져 있는지 꺼져 있는지 추적
         let isLampOn = true; // 기본적으로 램프는 켜짐 상태
 
         // 램프 클릭 이벤트 처리
         document.getElementById('lamp').addEventListener('click', function() {
-            // 만약 램프가 켜져 있다면, 꺼진 상태로 전환
             if (isLampOn) {
                 document.body.style.backgroundColor = 'rgb(46, 46, 46)'; // 배경을 회색으로 변경
                 document.getElementById('lamp').src = 'lamp2.png'; // 꺼진 램프 이미지로 변경
-                document.getElementById('bed').src = 'bed2.png'; // 꺼진 램프 이미지로 변경
-                document.getElementById('rug').src = 'rug2.png'; // 꺼진 램프 이미지로 변경
+                document.getElementById('bed').src = 'bed2.png'; // 꺼진 침대 이미지로 변경
+                document.getElementById('rug').src = 'rug2.png'; // 꺼진 러그 이미지로 변경
                 isLampOn = false; // 상태를 꺼짐으로 변경
             } else {
                 document.body.style.backgroundColor = 'white'; // 배경을 하얀색으로 변경
                 document.getElementById('lamp').src = 'lamp.png'; // 켜진 램프 이미지로 변경
-                document.getElementById('bed').src = 'bed.png'; // 켜진 램프 이미지로 변경
-                document.getElementById('rug').src = 'rug.png'; // 켜진 램프 이미지로 변경
+                document.getElementById('bed').src = 'bed.png'; // 켜진 침대 이미지로 변경
+                document.getElementById('rug').src = 'rug.png'; // 켜진 러그 이미지로 변경
                 isLampOn = true; // 상태를 켜짐으로 변경
             }
         });
